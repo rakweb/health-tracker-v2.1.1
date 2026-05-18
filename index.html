@@ -1489,5 +1489,37 @@ html[data-theme="light"] .toolbar .small{
 })();
 </script>
 
+<script>
+if ('serviceWorker' in navigator) {
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    console.log('New version activated — reloading');
+    window.location.reload();
+  });
+
+  navigator.serviceWorker.getRegistration().then(reg => {
+    if (!reg) return;
+
+    if (reg.waiting) {
+      reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+    }
+
+    reg.addEventListener('updatefound', () => {
+      const newWorker = reg.installing;
+
+      newWorker.addEventListener('statechange', () => {
+        if (
+          newWorker.state === 'installed' &&
+          navigator.serviceWorker.controller
+        ) {
+          console.log('New version available');
+          newWorker.postMessage({ type: 'SKIP_WAITING' });
+        }
+      });
+    });
+  });
+}
+</script>
+
 </body>
 </html>
