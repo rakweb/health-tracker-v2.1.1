@@ -791,19 +791,7 @@ html[data-theme="light"] .toolbar .small{
     const tickText   = light ? '#2b3d57' : '#8aa0c3';   // keep ticks slightly muted
     const grid       = light ? 'rgba(10,18,32,0.16)' : 'rgba(230,238,252,0.14)';
 
-    // Apply to global defaults (for any charts created later)
-    Chart.defaults.plugins = Chart.defaults.plugins || {};
-    Chart.defaults.plugins.legend = Chart.defaults.plugins.legend || {};
-    Chart.defaults.plugins.legend.labels = Chart.defaults.plugins.legend.labels || {};
-    Chart.defaults.plugins.legend.labels.color = legendText;
-
-    Chart.defaults.scale = Chart.defaults.scale || {};
-    Chart.defaults.scale.ticks = Chart.defaults.scale.ticks || {};
-    Chart.defaults.scale.grid  = Chart.defaults.scale.grid  || {};
-    Chart.defaults.scale.ticks.color = tickText;
-    Chart.defaults.scale.grid.color  = grid;
-
-    // Force-update the existing metrics chart instance
+     // Force-update the existing metrics chart instance
     try {
       const ch = Chart.getChart('metricsChart');
       if (!ch) return;
@@ -1217,19 +1205,7 @@ html[data-theme="light"] .toolbar .small{
     } catch (_) {}
   }
 
-  function boot() {
-    // Wait until Chart is available, then register plugin and update
-    let tries = 0;
-    const t = setInterval(() => {
-      if (ensurePluginRegistered()) {
-        clearInterval(t);
-        applyToExistingCharts();
-      }
-      if (++tries > 200) clearInterval(t); // ~20s safety stop
-    }, 100);
-  }
-
-  // Start immediately
+    // Start immediately
   boot();
 
   // Re-apply whenever theme changes (light/dark) or PDF export mode toggles
