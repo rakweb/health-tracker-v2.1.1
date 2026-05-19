@@ -900,34 +900,31 @@ html[data-theme="light"] .toolbar .small{
   
 <script>
 if ('serviceWorker' in navigator) {
+
+  let updated = false;
+
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js')
       .then(() => console.log('✅ Service Worker Registered'))
       .catch(err => console.log('❌ SW failed:', err));
-	  
-	  
-	  console.log("SW updated — reload blocked (debug mode)");
-	  
-	  
-	  
-	  
   });
-}
-</script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  let updated = false;
 
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (updated) return;
     updated = true;
 
     console.log('✅ SW updated (no reload)');
-    // reload removed for stability
+    
+    const toast = document.getElementById('updateToast');
+    if (toast) toast.classList.add('show');
   });
 }
-``
+</script>
+
+<script>
+document.getElementById('btnReloadNow')?.addEventListener('click', () => {
+  window.location.reload();
+});
 </script>
 
 </body>
