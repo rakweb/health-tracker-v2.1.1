@@ -1,4 +1,4 @@
-const VERSION = "v2.1.0";
+const VERSION = "v2.1.1";
 const CACHE_NAME = `ht-${VERSION}`;
 
 const ASSETS = [
