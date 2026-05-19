@@ -907,17 +907,11 @@ if ('serviceWorker' in navigator) {
 </script>
 
 <script>
-if ('serviceWorker' in navigator) {
-  let refreshing = false;
-
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (refreshing) return;   // ✅ prevents loop
-    refreshing = true;
-
-    console.log('🔄 New version activated — reloading once');
-    window.location.reload();
-  });
-}
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  const toast = document.getElementById('updateToast');
+  if (toast) toast.classList.add('show');
+  }
+});
 </script>
 
 </body>
