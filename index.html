@@ -908,8 +908,13 @@ if ('serviceWorker' in navigator) {
 
 <script>
 if ('serviceWorker' in navigator) {
+  let refreshing = false;
+
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    console.log('🔄 New version activated — reloading');
+    if (refreshing) return;   // ✅ prevents loop
+    refreshing = true;
+
+    console.log('🔄 New version activated — reloading once');
     window.location.reload();
   });
 }
