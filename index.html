@@ -604,6 +604,7 @@ html[data-theme="light"] .toolbar .small{
     <div class="modal">
       <div class="modal-header">
         <h2 id="entryModalTitle">Add Entry</h2>
+		addEntry(entryData);
 		<button class="btn" id="btnSaveEntry">Save Entry</button>
         <button class="btn" onclick="UI.closeEntry()">Close</button>
       </div>
@@ -911,8 +912,8 @@ if ('serviceWorker' in navigator) {
 navigator.serviceWorker.addEventListener('controllerchange', () => {
   const toast = document.getElementById('updateToast');
   if (toast) toast.classList.add('show');
-  }
 });
+  })();
 </script>
 
 </body>
