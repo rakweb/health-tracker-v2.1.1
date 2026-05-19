@@ -909,8 +909,7 @@ if ('serviceWorker' in navigator) {
 <script>
 navigator.serviceWorker.addEventListener('controllerchange', () => {
   const toast = document.getElementById('updateToast');
-  if (toast) {
-    toast.classList.add('show');
+  if (toast) toast.classList.add('show');
   }
 });
 </script>
