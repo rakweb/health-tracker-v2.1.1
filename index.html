@@ -604,6 +604,7 @@ html[data-theme="light"] .toolbar .small{
     <div class="modal">
       <div class="modal-header">
         <h2 id="entryModalTitle">Add Entry</h2>
+		addEntry(entryData);
 		<button class="btn" id="btnSaveEntry">Save Entry</button>
         <button class="btn" onclick="UI.closeEntry()">Close</button>
       </div>
@@ -903,16 +904,30 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
       .then(() => console.log('✅ Service Worker Registered'))
       .catch(err => console.log('❌ SW failed:', err));
+	  
+	  
+	  console.log("SW updated — reload blocked (debug mode)");
+	  
+	  
+	  
+	  
   });
 }
 </script>
 
 <script>
-navigator.serviceWorker.addEventListener('controllerchange', () => {
-  const toast = document.getElementById('updateToast');
-  if (toast) toast.classList.add('show');
-  }
-});
+if ('serviceWorker' in navigator) {
+  let updated = false;
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (updated) return;
+    updated = true;
+
+    console.log('✅ SW updated (no reload)');
+    // reload removed for stability
+  });
+}
+``
 </script>
 
 </body>
